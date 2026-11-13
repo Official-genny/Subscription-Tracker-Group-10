@@ -1,0 +1,17 @@
+[
+  {
+    "id": "sub_001",
+    "name": "Netflix",
+    "price": 5000
+  },
+  {
+    "id": "sub_002",
+    "name": "Spotify",
+    "price": 2500
+  },
+  {
+    "id": "sub_003",
+    "name": "YouTube Premium",
+    "price": 3500
+  }
+]
