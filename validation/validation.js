@@ -1,6 +1,6 @@
 const requiredFields = ['name', 'email', 'subscriptionDate', 'subscriptionDuration']
     
-
+// Validate the subscription object
 export function validateSubscription(input, requiredFields) {
     const errors = [];
     const subscription = input && typeof input === 'object' ? input : {};
@@ -12,6 +12,7 @@ export function validateSubscription(input, requiredFields) {
         }
     }
 
+    // Validate each field if it exists
     if (subscription.name !== undefined && (typeof subscription.name !== 'string' || !subscription.name.trim())) {
     errors.push('name must be a non-empty string');
     }
