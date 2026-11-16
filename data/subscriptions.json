@@ -1,17 +1,38 @@
 [
   {
     "id": "sub_001",
-    "name": "Netflix",
-    "price": 5000
+    "name": "Netflix Premium",
+    "price": 22.99,
+    "billingCycle": "monthly",
+    "renewalDate": "2026-12-16",
+    "createdAt": "2026-11-01T00:00:00.000Z",
+    "updatedAt": "2026-11-16T21:07:07.703Z"
   },
   {
     "id": "sub_002",
     "name": "Spotify",
-    "price": 2500
+    "price": 2500,
+    "billingCycle": "monthly",
+    "renewalDate": "2026-12-15",
+    "createdAt": "2026-11-01T00:00:00.000Z",
+    "updatedAt": "2026-11-01T00:00:00.000Z"
   },
   {
     "id": "sub_003",
     "name": "YouTube Premium",
-    "price": 3500
+    "price": 3500,
+    "billingCycle": "monthly",
+    "renewalDate": "2027-01-01",
+    "createdAt": "2026-11-01T00:00:00.000Z",
+    "updatedAt": "2026-11-01T00:00:00.000Z"
+  },
+  {
+    "name": "Netflix",
+    "price": 15.99,
+    "billingCycle": "monthly",
+    "renewalDate": "2026-12-16",
+    "id": "sub_4240fcc9-1f81-4098-8983-418db932c2e9",
+    "createdAt": "2026-11-16T21:03:44.897Z",
+    "updatedAt": "2026-11-16T21:03:44.897Z"
   }
 ]

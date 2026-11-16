@@ -5,6 +5,15 @@ import {
     updateSubscription,
     deleteSubscription
 } from '../services/subscriptionService.js';
+import { validateSubscription } from '../validation/validation.js';
+
+const sendValidationError = (res, errors) => {
+    return res.status(400).json({
+        success: false,
+        message: 'Invalid subscription data',
+        errors
+    });
+};
 
 // Handle unexpected server errors
 const handleServerError = (res, error) => {
@@ -62,25 +71,17 @@ export const getSubscriptionById = async (req, res) => {
 // POST - Create a new subscription
 export const createSubscriptionController = async (req, res) => {
     try {
-        const { name, price } = req.body;
+        const errors = validateSubscription(req.body);
 
-        if (!name || typeof name !== 'string' || !name.trim()) {
-            return res.status(400).json({
-                success: false,
-                message: 'Subscription name is required'
-            });
-        }
-
-        if (typeof price !== 'number' || !Number.isFinite(price) || price <= 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'A valid price is required'
-            });
+        if (errors.length > 0) {
+            return sendValidationError(res, errors);
         }
 
         const subscription = await createSubscription({
-            name: name.trim(),
-            price
+            name: req.body.name.trim(),
+            price: req.body.price,
+            billingCycle: req.body.billingCycle.trim(),
+            renewalDate: req.body.renewalDate.trim()
         });
 
         res.status(201).json({
@@ -97,39 +98,28 @@ export const createSubscriptionController = async (req, res) => {
 export const updateSubscriptionController = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, price } = req.body;
+        const errors = validateSubscription(req.body, true);
 
-        if (name === undefined && price === undefined) {
-            return res.status(400).json({
-                success: false,
-                message: 'Provide at least one field to update'
-            });
-        }
-
-        if (name !== undefined &&
-            (typeof name !== 'string' || !name.trim())) {
-            return res.status(400).json({
-                success: false,
-                message: 'A valid subscription name is required'
-            });
-        }
-
-        if (price !== undefined &&
-            (typeof price !== 'number' || !Number.isFinite(price) || price <= 0)) {
-            return res.status(400).json({
-                success: false,
-                message: 'A valid price is required'
-            });
+        if (errors.length > 0) {
+            return sendValidationError(res, errors);
         }
 
         const updatedData = {};
 
-        if (name !== undefined) {
-            updatedData.name = name.trim();
+        if (req.body.name !== undefined) {
+            updatedData.name = req.body.name.trim();
         }
 
-        if (price !== undefined) {
-            updatedData.price = price;
+        if (req.body.price !== undefined) {
+            updatedData.price = req.body.price;
+        }
+
+        if (req.body.billingCycle !== undefined) {
+            updatedData.billingCycle = req.body.billingCycle.trim();
+        }
+
+        if (req.body.renewalDate !== undefined) {
+            updatedData.renewalDate = req.body.renewalDate.trim();
         }
 
         const updatedSubscription = await updateSubscription(id, updatedData);

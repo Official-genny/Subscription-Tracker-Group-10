@@ -16,10 +16,13 @@ export const getSubscriptions = async () => {
 // CREATE a new subscription
 export const createSubscription = async (subscriptionData) => {
     const subscriptions = await getSubscriptions();
+    const now = new Date().toISOString();
 
     const newSubscription = {
         ...subscriptionData,
-        id: `sub_${randomUUID()}`
+        id: `sub_${randomUUID()}`,
+        createdAt: now,
+        updatedAt: now
     };
 
     subscriptions.push(newSubscription);
@@ -48,7 +51,8 @@ export const updateSubscription = async (id, updatedData) => {
     subscriptions[subscriptionIndex] = {
         ...subscriptions[subscriptionIndex],
         ...updatedData,
-        id
+        id,
+        updatedAt: new Date().toISOString()
     };
 
     await writeFile(

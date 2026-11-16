@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
         message: 'Welcome to Subscription Tracker API'
     });
 });
-app.use('/api/v1/subscriptions', subscriptionRoutes);
+app.use('/resources', subscriptionRoutes);
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
